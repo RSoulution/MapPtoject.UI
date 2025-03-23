@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechnicalTask.UI.Abstractions\TechnicalTask.UI.Abstractions.csproj" />
+    <ProjectReference Include="..\TechnicalTask.UI.Client\TechnicalTask.UI.Client.csproj" />
+    <ProjectReference Include="..\TechnicalTask.UI.Control\TechnicalTask.UI.Control.csproj" />
+  </ItemGroup>
+
+</Project>
