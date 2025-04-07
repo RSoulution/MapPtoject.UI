@@ -119,7 +119,7 @@ namespace TechnicalTask.UI.Control
                     mapObject.IsActive = false;
                 }
             }
-            var inactiveObjects = ObjectsList.Where(o => now - o.DateTime > TimeSpan.FromMinutes(1)).ToList(); //Видаляємо елементи які не оновлювались 5 хвилин
+            var inactiveObjects = ObjectsList.Where(o => now - o.DateTime > TimeSpan.FromMinutes(5)).ToList(); //Видаляємо елементи які не оновлювались 5 хвилин
 
             foreach (var inactiveObject in inactiveObjects)
             {
