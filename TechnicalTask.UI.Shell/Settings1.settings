@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TechnicalTask.UI.Shell" GeneratedClassName="Settings1">
+  <Profiles />
+  <Settings>
+    <Setting Name="MarkersSize" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">30</Value>
+    </Setting>
+    <Setting Name="SignalRConnection" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:5034</Value>
+    </Setting>
+    <Setting Name="MarkerActiveColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF00AA</Value>
+    </Setting>
+    <Setting Name="MarkerLostColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#808080</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

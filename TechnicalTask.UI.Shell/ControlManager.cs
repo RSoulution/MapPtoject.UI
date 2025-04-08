@@ -4,7 +4,7 @@ using TechnicalTask.UI.Abstractions;
 
 namespace TechnicalTask.UI.Shell
 {
-    class ControlManager : IControlManager //Запам'ятовує та додає елементи на необхідну область
+    class ControlManager : IControlManager //Remembers and adds elements to the required area
     {
         private readonly Dictionary<string, UIElement> controlDictionary = new Dictionary<string, UIElement>();
         public void Register<T>(string key, T element) where T : UIElement

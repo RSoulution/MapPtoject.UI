@@ -12,10 +12,10 @@ namespace TechnicalTask.UI.Control
             _viewModel = mapViewModel;
         }
 
-        private void MapLoaded(object sender, RoutedEventArgs e) //При завантаженні карти
+        private void MapLoaded(object sender, RoutedEventArgs e) 
         {
             DataContext = _viewModel;
-            _viewModel.SetMapControl(this.gmap); //Передаємо карту в ViewModel (GMap не підтримує Binding маркерів)
+            _viewModel.SetMapControl(this.gmap);
         }
     }
 }

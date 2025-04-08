@@ -1,19 +1,24 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+using System.Text.RegularExpressions;
 using TechnicalTask.Entities;
 
 namespace TechnicalTask.UI.Client
 {
-    public class SignalRClient //Клієнт серверу
+    public class SignalRClient //Server client
     {
         private HubConnection _connection;
 
-        public event Action<string> OnJoinSuccess; //Отримати відповідь про успішне приєднання до групи
-        public event Action<string> OnJoinFailed; //Отримати відповідь про невдале приєднання до групи
-        public event Action<EntObject> OnReceiveObjects; //Отримати об'єкти з серверу
-        string url = "http://localhost:5034"; //Адреса серверу
+        public event Action<string> OnJoinSuccess; //Receive a response about successfully joining the group
+        public event Action<string> OnJoinFailed; //Get a response about a failed group join
+        public event Action<EntObject> OnReceiveObjects; //Get objects from the server
+        string url = "http://localhost:5034"; //Server address
+        public string Group  {
+            get;
+            set; } = string.Empty;
 
-        public SignalRClient()
+        public SignalRClient(string connectionString)
         {
+            url = connectionString;
             _connection = new HubConnectionBuilder()
                 .WithUrl($"{url}/main")
                 .WithAutomaticReconnect()
@@ -24,14 +29,14 @@ namespace TechnicalTask.UI.Client
             _connection.On<EntObject>("ReceiveData", objects => OnReceiveObjects?.Invoke(objects));
         }
 
-        public async Task ConnectAsync() //Підключення до серверу
+        public async Task ConnectAsync() //Connecting to the server
         {
             if(_connection.State != HubConnectionState.Connected)
                 await _connection.StartAsync();
 
         }
 
-        public async Task JoinGroup(string key) //Підключення до групи за ключем
+        public async Task JoinGroup(string key) //Connecting to a group by key
         {
             if (_connection.State == HubConnectionState.Connected)
             {
@@ -40,9 +45,9 @@ namespace TechnicalTask.UI.Client
             else
                 throw new Exception("Connection Failed.");
         }
-        public async Task LeaveGroup() //Покинути свою групу
+        public async Task LeaveGroup() //Leave your group
         {
-            await _connection.InvokeAsync("LeaveGroup");
+            await _connection.InvokeAsync("LeaveGroup", Group);
         }
     }
 }

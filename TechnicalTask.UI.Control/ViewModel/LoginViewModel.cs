@@ -8,13 +8,13 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace TechnicalTask.UI.Control
 {
-    public partial class LoginViewModel : ObservableObject, IDataErrorInfo   //ViewModel вікна LoginControl
+    public partial class LoginViewModel : ObservableObject, IDataErrorInfo   //ViewModel LoginControl
     {
-        private readonly SignalRClient _signalRClient; //Клієнт
-        private readonly IControlManager _controlManager; //ControlManager для перехіду між вікнами
+        private readonly SignalRClient _signalRClient; //Client
+        private readonly IControlManager _controlManager; //ControlManager for switching between windows
 
-        [ObservableProperty] //Оголошуємо Bindings та Команди
-        private string key = "";
+        [ObservableProperty] //Declaring Bindings and Commands
+        private string key = string.Empty;
 
         [ObservableProperty]
         private string validationText = "";
@@ -26,30 +26,31 @@ namespace TechnicalTask.UI.Control
         {
             _signalRClient = rClient;
             _controlManager = controlManager;
-            _signalRClient.ConnectAsync(); //Одразу підключаємось
-            _signalRClient.OnJoinSuccess += OnJoinSuccess; //Підписуємось на відповіді серверу
+            _signalRClient.ConnectAsync(); //Let's connect right away.
+            _signalRClient.OnJoinSuccess += OnJoinSuccess; //Subscribe to server responses
             _signalRClient.OnJoinFailed += OnJoinFailed;
-            EnterCommand = new RelayCommand(ExecuteEnterCommandAsync, CanExecuteEnter);
+            EnterCommand = new RelayCommand(ExecuteEnterCommand, CanExecuteEnter);
             ExitCommand = new RelayCommand(ExecuteExitCommand);
         }
 
-        private void OnJoinSuccess(string message) //Обробник подій клієнта про успішне приєднання до групи
+        private void OnJoinSuccess(string message) //Client event handler for successful group join
         {
+            _signalRClient.Group = key;
             _controlManager.Place("MainWindow", "MainRegion", "MapViewControl");
         }
 
-        private void OnJoinFailed(string message) //Обробник подій клієнта про невдале приєднання до групи
+        private void OnJoinFailed(string message) //Client event handler for failed group join
         {
             Debug.WriteLine($"JoinFailed received: {message}");
             ValidationText = message; 
         }
 
-        private async void ExecuteEnterCommandAsync() //Виконання кнопки ENTER
+        private void ExecuteEnterCommand() //Pressing the ENTER button
         {
             try
             {
-                await _signalRClient.ConnectAsync();
-                await _signalRClient.JoinGroup(Key);
+                using var _ = _signalRClient.ConnectAsync();
+                 _signalRClient.JoinGroup(Key);
             }
             catch (Exception ex)
             {
@@ -58,12 +59,12 @@ namespace TechnicalTask.UI.Control
 
         }
 
-        private bool CanExecuteEnter() //Блокування кнопки ENTER, якщо поле ключа пусте
+        private bool CanExecuteEnter() //Block ENTER button if key field is empty
         {
             return !string.IsNullOrWhiteSpace(Key);
         }
 
-        private void ExecuteExitCommand() //Виконання кнопки EXIT
+        private void ExecuteExitCommand() //Executing the EXIT button
         {
             Process.GetCurrentProcess().Kill();
         }

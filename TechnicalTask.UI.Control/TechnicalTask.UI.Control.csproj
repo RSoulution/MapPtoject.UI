@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\TechnicalTask.Service\TechnicalTask.Entities\TechnicalTask.Entities.csproj" />
+    <ProjectReference Include="..\TechnicalTask.Entities\TechnicalTask.Entities.csproj" />
     <ProjectReference Include="..\TechnicalTask.UI.Abstractions\TechnicalTask.UI.Abstractions.csproj" />
     <ProjectReference Include="..\TechnicalTask.UI.Client\TechnicalTask.UI.Client.csproj" />
   </ItemGroup>

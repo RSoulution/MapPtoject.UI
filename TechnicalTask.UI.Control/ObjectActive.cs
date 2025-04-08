@@ -9,11 +9,11 @@ using TechnicalTask.Entities;
 
 namespace TechnicalTask.UI.Control
 {
-    public class ObjectActive : EntObject //Змінюємо клас сутності об'єкта БД під наші потреби
+    public class ObjectActive : EntObject //We change the entity class of the DB object to suit our needs
     {
-        public bool IsActive { get; set; } //Чи активний цей об'єкт
+        public bool IsActive { get; set; } //Is this object active
 
-        public DateTime DateTime { get; set; } //Коли востаннє оновлювався
+        public DateTime DateTime { get; set; } //When was it last updated?
 
         public ObjectActive(int id, double azimuth, double lat, double lon, bool active, DateTime dateTime): base(id, azimuth, lat, lon) { 
             IsActive = active;
@@ -29,7 +29,7 @@ namespace TechnicalTask.UI.Control
             DateTime = dateTime;
         }
 
-        public override string ToString() //Переписуємо ToString для зручного додавання в ListBox
+        public override string ToString() //Rewriting ToString for easy addition to ListBox
         {
             return $"Object {Id}";
         }

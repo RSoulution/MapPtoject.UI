@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 
 namespace TechnicalTask.UI.Control
 {
-    public class AzimuthMarker : Canvas //Кастомний маркер з стрілкою напрямку за азимутом
+    public class AzimuthMarker : Canvas //Custom marker with azimuth direction arrow
     {
         private double radius;
         private double azimuthAngle;
@@ -30,7 +30,7 @@ namespace TechnicalTask.UI.Control
                 ToolTip = tooltip
             };
 
-            // Центрування еліпсу
+            // Centering an ellipse
             SetLeft(ellipse, -radius/2);
             SetTop(ellipse, -radius/2);
             Children.Add(ellipse);
@@ -40,7 +40,7 @@ namespace TechnicalTask.UI.Control
             Children.Add(arrow);
         }
 
-        private Path CreateArrow(Point center, double angle) // Додавання стрілки
+        private Path CreateArrow(Point center, double angle) // Adding an arrow
         {
             double arrowLength = radius;
             double arrowHeadSize = radius * 0.3;
@@ -52,7 +52,7 @@ namespace TechnicalTask.UI.Control
                 center.Y - arrowLength * Math.Sin(radians) 
             );
 
-            // Головка стрілки
+            // Arrowhead
             Point arrowLeft = new Point(
                 end.X - arrowHeadSize * Math.Cos(radians - Math.PI / 6),
                 end.Y + arrowHeadSize * Math.Sin(radians - Math.PI / 6)
